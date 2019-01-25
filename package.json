@@ -1,6 +1,6 @@
 {
   "name": "get-pseudo-content",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "returns the content of a pseudo element as a flat string",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
