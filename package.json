@@ -2,13 +2,21 @@
   "name": "get-pseudo-content",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types" : "dist/index.d.ts",
   "scripts": {
     "test": "karma start",
-    "build": "tsc ./src/index.ts --outDir ./dist/"
+    "build": "tsc"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Lisa Martens <lemnis.martens@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lemnis/get-pseudo-content.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lemnis/get-pseudo-content/issues"
+   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
@@ -22,8 +30,5 @@
     "karma-typescript": "^3.0.13",
     "mocha": "^5.2.0",
     "typescript": "^3.2.4"
-  },
-  "dependencies": {
-    "karma-safaritechpreview-launcher": "^2.0.2"
   }
 }

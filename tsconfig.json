@@ -1,15 +1,13 @@
 {
-    "compilerOptions": {
-      "outDir": "./dist/",
-      "module": "amd",
-      "target": "es5",
-      "forceConsistentCasingInFileNames": true,
-      "noImplicitReturns": true,
-      "strict": true,
-      "noUnusedLocals": true,
-      "moduleResolution": "node",
-      "pretty": true,
-      "sourceMap": true
-    }
-  }
-  
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "es5",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "declaration": true
+  },
+  "include": ["src/**/*"]
+}
