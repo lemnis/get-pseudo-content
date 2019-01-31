@@ -8,7 +8,7 @@
 const contentList: {
   [name: string]: { regex: string };
 } = {
-  quotedString: { regex: '"(.+)"' },
+  quotedString: { regex: '"((?:.|\n)+)"' },
   unquotedString: { regex: "([a-zA-Z]+)" },
   attribute: { regex: "attr\\((.+?)\\)" }
 };
@@ -16,12 +16,12 @@ const contentList: {
 const contentListKeys = Object.keys(contentList);
 const innerRegex = contentListKeys.map(key => contentList[key].regex).join("|");
 const regex = new RegExp(`(?:^|\\s)(?:${innerRegex})(?:$|\\s)`);
-const split = /(?:^|\s)((?:".+?"(?!\\))|\S+)/;
+const split = /((?:"(?:.|\n)+?"(?!\\))|\S+)(?:$|\s)/;
 
 function unescapeCharacters(string: string, preserveNewlines: boolean) {
-  string = string.replace(/\\\"/g, '"');
-  string = string.replace(/\\\\/g, "\\");
-  string = string.replace(/\\a /g, preserveNewlines ? "\n" : "");
+  string = string.replace(/\\(\"|\\)/g, "$1");
+  string = string.replace(/\\a /g, preserveNewlines ? "\n" : " ");
+  if (!preserveNewlines) string = string.replace(/\n/, " ");
   return string;
 }
 
@@ -36,7 +36,7 @@ export default function(
     whiteSpace == "pre-wrap";
 
   // with 'normal' the psuedo element is not generated.
-  // 'none' computes to 'normal' within psuedo elements.
+  // 'none' computes to 'normal' within psuedo elements
   if (!content || content === "normal" || content === "none") return null;
 
   const result: string[] = [];

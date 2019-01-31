@@ -7,18 +7,19 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var contentList = {
-    quotedString: { regex: '"(.+)"' },
+    quotedString: { regex: '"((?:.|\n)+)"' },
     unquotedString: { regex: "([a-zA-Z]+)" },
     attribute: { regex: "attr\\((.+?)\\)" }
 };
 var contentListKeys = Object.keys(contentList);
 var innerRegex = contentListKeys.map(function (key) { return contentList[key].regex; }).join("|");
 var regex = new RegExp("(?:^|\\s)(?:" + innerRegex + ")(?:$|\\s)");
-var split = /(?:^|\s)((?:".+?"(?!\\))|\S+)/;
+var split = /((?:"(?:.|\n)+?"(?!\\))|\S+)(?:$|\s)/;
 function unescapeCharacters(string, preserveNewlines) {
-    string = string.replace(/\\\"/g, '"');
-    string = string.replace(/\\\\/g, "\\");
-    string = string.replace(/\\a /g, preserveNewlines ? "\n" : "");
+    string = string.replace(/\\(\"|\\)/g, "$1");
+    string = string.replace(/\\a /g, preserveNewlines ? "\n" : " ");
+    if (!preserveNewlines)
+        string = string.replace(/\n/, " ");
     return string;
 }
 function default_1(node, pseudo) {
@@ -27,7 +28,7 @@ function default_1(node, pseudo) {
         whiteSpace == "pre-line" ||
         whiteSpace == "pre-wrap";
     // with 'normal' the psuedo element is not generated.
-    // 'none' computes to 'normal' within psuedo elements.
+    // 'none' computes to 'normal' within psuedo elements
     if (!content || content === "normal" || content === "none")
         return null;
     var result = [];
@@ -67,3 +68,4 @@ function default_1(node, pseudo) {
     return result.join("") || null;
 }
 exports.default = default_1;
+//# sourceMappingURL=index.js.map
