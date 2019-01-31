@@ -13,7 +13,7 @@ const webpack = {
         exclude: /node_modules/
       },
       {
-        test: /\.ts$/,
+        test: /src\/.*\.ts$/,
         exclude: /node_modules/,
         loader: "istanbul-instrumenter-loader",
         enforce: "post",
